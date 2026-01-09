@@ -1,20 +1,55 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
-  <div class="container">
-    <a class="navbar-brand fw-bold" href="/">📚 BookTrack</a>
+<nav class="bg-gray-900 shadow-lg">
+  <div class="container mx-auto px-4">
+    <div class="flex items-center justify-between py-4">
+      <!-- Logo/Brand -->
+      <a class="text-white text-xl font-bold hover:text-gray-300 transition" href="/">
+        📚 BookTrack
+      </a>
+      
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex space-x-6">
+        <a class="text-gray-300 hover:text-white transition duration-200 ease-in-out" href="/">
+          📖 Daftar Buku
+        </a>
+        <a class="text-gray-300 hover:text-white transition duration-200 ease-in-out" href="/peminjaman">
+          📋 Peminjaman
+        </a>
+      </div>
+      
+      <!-- Mobile Toggle Button -->
+      <button class="md:hidden text-white focus:outline-none hover:text-gray-300 transition" id="navbarToggle" aria-label="Toggle navigation">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
     
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/">📖 Daftar Buku</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/peminjaman">📋 Peminjaman</a>
-        </li>
-      </ul>
+    <!-- Mobile Menu -->
+    <div class="hidden md:hidden pb-4 border-t border-gray-700" id="mobileMenu">
+      <a class="block text-gray-300 hover:text-white hover:bg-gray-800 py-3 px-4 rounded transition duration-200 mt-2" href="/">
+        📖 Daftar Buku
+      </a>
+      <a class="block text-gray-300 hover:text-white hover:bg-gray-800 py-3 px-4 rounded transition duration-200" href="/peminjaman">
+        📋 Peminjaman
+      </a>
     </div>
   </div>
 </nav>
+
+<script>
+  // Toggle mobile menu
+  const navbarToggle = document.getElementById('navbarToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  
+  navbarToggle.addEventListener('click', function() {
+    mobileMenu.classList.toggle('hidden');
+  });
+  
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', function(event) {
+    const isClickInsideNav = navbarToggle.contains(event.target) || mobileMenu.contains(event.target);
+    if (!isClickInsideNav && !mobileMenu.classList.contains('hidden')) {
+      mobileMenu.classList.add('hidden');
+    }
+  });
+</script>

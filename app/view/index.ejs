@@ -2,10 +2,11 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BookTrack | Manajemen Buku</title>
 
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
     body {
@@ -13,100 +14,169 @@
     }
   </style>
 </head>
-<body class="bg-light">
+<body class="bg-gray-100 min-h-screen flex flex-col">
 
 <%- include('partials/navbar') %>
 
-<div class="container mt-4">
+<div class="container mx-auto px-4 py-8 flex-grow">
+  <div class="max-w-7xl mx-auto">
 
-  <!-- FORM TAMBAH BUKU -->
-  <div class="card shadow mb-4">
-    <div class="card-body">
-      <h5 class="mb-3">➕ Tambah Buku</h5>
+    <!-- Header Section -->
+    <div class="mb-6">
+      <h1 class="text-3xl font-bold text-gray-800 flex items-center gap-2">
+        📚 Manajemen Buku
+      </h1>
+      <p class="text-gray-600 mt-2">Kelola koleksi buku perpustakaan Anda</p>
+    </div>
+
+    <!-- FORM TAMBAH BUKU -->
+    <div class="bg-white rounded-lg shadow-lg mb-6 p-6">
+      <h5 class="text-xl font-semibold mb-4 flex items-center gap-2">
+        ➕ Tambah Buku Baru
+      </h5>
 
       <form action="/add" method="POST">
-        <div class="row g-2">
-          <div class="col-md-3">
-            <input type="text" name="judul" class="form-control" placeholder="Judul Buku" required>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-3">
+          <div class="md:col-span-3">
+            <input 
+              type="text" 
+              name="judul" 
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 outline-none" 
+              placeholder="Judul Buku" 
+              required>
           </div>
-          <div class="col-md-3">
-            <input type="text" name="penulis" class="form-control" placeholder="Penulis" required>
+          <div class="md:col-span-3">
+            <input 
+              type="text" 
+              name="penulis" 
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 outline-none" 
+              placeholder="Penulis" 
+              required>
           </div>
-          <div class="col-md-2">
-            <input type="number" name="tahun" class="form-control" placeholder="Tahun" required>
+          <div class="md:col-span-2">
+            <input 
+              type="number" 
+              name="tahun" 
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 outline-none" 
+              placeholder="Tahun" 
+              min="1900"
+              max="2100"
+              required>
           </div>
-          <div class="col-md-2">
-            <select name="status" class="form-select">
-              <option value="tersedia">tersedia</option>
-              <option value="dipinjam">dipinjam</option>
+          <div class="md:col-span-2">
+            <select 
+              name="status" 
+              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 outline-none bg-white">
+              <option value="tersedia">✅ Tersedia</option>
+              <option value="dipinjam">📤 Dipinjam</option>
             </select>
           </div>
-          <div class="col-md-2">
-            <button class="btn btn-primary w-100">Tambah</button>
+          <div class="md:col-span-2">
+            <button 
+              type="submit"
+              class="w-full bg-blue-600 text-white px-4 py-2.5 rounded-lg hover:bg-blue-700 transition duration-200 font-semibold shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+              Tambah
+            </button>
           </div>
         </div>
       </form>
     </div>
-  </div>
 
-  <!-- TABEL DATA BUKU -->
-  <div class="card shadow">
-    <div class="card-body">
-      <h5 class="mb-3">📖 Daftar Buku</h5>
+    <!-- TABEL DATA BUKU -->
+    <div class="bg-white rounded-lg shadow-lg p-6">
+      <div class="flex items-center justify-between mb-4">
+        <h5 class="text-xl font-semibold flex items-center gap-2">
+          📖 Daftar Buku
+        </h5>
+        <span class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">
+          Total: <%= books.length %> buku
+        </span>
+      </div>
 
-      <table class="table table-striped table-hover align-middle">
-        <thead class="table-dark">
-          <tr>
-            <th>Judul</th>
-            <th>Penulis</th>
-            <th>Tahun</th>
-            <th>Status</th>
-            <th class="text-center">Aksi</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% if (books.length === 0) { %>
-          <tr>
-            <td colspan="5" class="text-center text-muted">Belum ada data buku</td>
-          </tr>
-          <% } else { %>
-            <% books.forEach(buku => { %>
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-800">
             <tr>
-              <td><%= buku.judul %></td>
-              <td><%= buku.penulis %></td>
-              <td><%= buku.tahun %></td>
-              <td>
-                <% if (buku.status === 'Tersedia') { %>
-                  <span class="badge bg-success">Tersedia</span>
-                <% } else { %>
-                  <span class="badge bg-danger">Dipinjam</span>
-                <% } %>
-              </td>
-              <td class="text-center">
-                <% if (buku.status === 'Tersedia') { %>
-                  <a href="/pinjam/<%= buku.id %>" class="btn btn-info btn-sm text-white">Pinjam</a>
-                <% } %>
-                <a href="/edit/<%= buku.id %>" class="btn btn-warning btn-sm">Edit</a>
-                <form action="/delete/<%= buku.id %>" method="POST" style="display:inline;">
-                  <button type="submit" class="btn btn-danger btn-sm"
-                          onclick="return confirm('Yakin hapus buku ini?')">
-                    Hapus
-                  </button>
-                </form>
+              <th class="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Judul</th>
+              <th class="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Penulis</th>
+              <th class="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Tahun</th>
+              <th class="px-6 py-4 text-left text-xs font-semibold text-white uppercase tracking-wider">Status</th>
+              <th class="px-6 py-4 text-center text-xs font-semibold text-white uppercase tracking-wider">Aksi</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <% if (books.length === 0) { %>
+            <tr>
+              <td colspan="5" class="px-6 py-12 text-center">
+                <div class="flex flex-col items-center justify-center text-gray-400">
+                  <svg class="w-16 h-16 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                  </svg>
+                  <p class="text-lg font-medium">Belum ada data buku</p>
+                  <p class="text-sm mt-1">Tambahkan buku pertama Anda menggunakan form di atas</p>
+                </div>
               </td>
             </tr>
-            <% }) %>
-          <% } %>
-        </tbody>
-      </table>
+            <% } else { %>
+              <% books.forEach(buku => { %>
+              <tr class="hover:bg-gray-50 transition duration-150">
+                <td class="px-6 py-4">
+                  <div class="text-sm font-medium text-gray-900"><%= buku.judul %></div>
+                </td>
+                <td class="px-6 py-4">
+                  <div class="text-sm text-gray-600"><%= buku.penulis %></div>
+                </td>
+                <td class="px-6 py-4">
+                  <div class="text-sm text-gray-600"><%= buku.tahun %></div>
+                </td>
+                <td class="px-6 py-4">
+                  <% if (buku.status === 'Tersedia') { %>
+                    <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                      ✅ Tersedia
+                    </span>
+                  <% } else { %>
+                    <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                      📤 Dipinjam
+                    </span>
+                  <% } %>
+                </td>
+                <td class="px-6 py-4 text-center">
+                  <div class="flex items-center justify-center gap-2">
+                    <% if (buku.status === 'Tersedia') { %>
+                      <a 
+                        href="/pinjam/<%= buku.id %>" 
+                        class="inline-flex items-center px-3 py-1.5 bg-cyan-500 text-white text-xs font-medium rounded-md hover:bg-cyan-600 transition duration-200 shadow-sm hover:shadow">
+                        📖 Pinjam
+                      </a>
+                    <% } %>
+                    <a 
+                      href="/edit/<%= buku.id %>" 
+                      class="inline-flex items-center px-3 py-1.5 bg-yellow-500 text-white text-xs font-medium rounded-md hover:bg-yellow-600 transition duration-200 shadow-sm hover:shadow">
+                      ✏️ Edit
+                    </a>
+                    <form action="/delete/<%= buku.id %>" method="POST" style="display:inline;">
+                      <button 
+                        type="submit" 
+                        class="inline-flex items-center px-3 py-1.5 bg-red-500 text-white text-xs font-medium rounded-md hover:bg-red-600 transition duration-200 shadow-sm hover:shadow"
+                        onclick="return confirm('⚠️ Yakin ingin menghapus buku ini?\n\nJudul: <%= buku.judul %>\nPenulis: <%= buku.penulis %>')">
+                        🗑️ Hapus
+                      </button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+              <% }) %>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
 
     </div>
-  </div>
 
+  </div>
 </div>
 
 <%- include('partials/footer') %>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

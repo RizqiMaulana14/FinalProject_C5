@@ -1,5 +1,45 @@
-<footer class="bg-dark text-light text-center py-3 mt-5">
-  <small>
-    © 2026 BookTrack | Teknologi Server
-  </small>
-</footer>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookTrack</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              poppins: ['Poppins', 'sans-serif'],
+            },
+          },
+        },
+      }
+    </script>
+
+    <style>
+      /* Memaksa semua elemen menggunakan Poppins */
+      * {
+        font-family: 'Poppins', sans-serif !important;
+      }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <footer class="bg-white border-t border-gray-200 text-gray-600 text-center py-6 mt-12">
+      <div class="container mx-auto px-4">
+        <p class="text-sm font-medium">
+          © 2026 <span class="text-blue-600 font-bold">BookTrack</span> | Kelompok <%= process.env.GROUP_NAME %>
+        </p>
+        <p class="text-xs text-gray-400 mt-1">
+          Teknologi Server - Praktikum UCP 3
+        </p>
+      </div>
+    </footer>
+
+</body>
+</html>

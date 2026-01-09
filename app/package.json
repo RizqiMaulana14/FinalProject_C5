@@ -1,11 +1,12 @@
 {
-  "name": "tulis-menfess",
-  "version": "1.1.0",
+  "name": "Book-Track",
+  "version": "1.0.0",
   "description": "Anonymous Confession Wall",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "build:css": "tailwindcss -i ./public/css/input.css -o ./public/css/style.css --watch"
   },
   "dependencies": {
     "body-parser": "^1.20.2",
@@ -15,6 +16,7 @@
     "mysql2": "^3.6.1"
   },
   "devDependencies": {
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "tailwindcss": "^4.1.18"
   }
 }
