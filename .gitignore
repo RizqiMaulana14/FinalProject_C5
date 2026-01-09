@@ -3,6 +3,7 @@ node_modules/
 
 # Environment variables
 .env
+app/.env
 
 # Ignore environment configuration file
 .DS_Store

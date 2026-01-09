@@ -19,21 +19,24 @@ services:
 
   # --- 2. APP SERVICE ---
   app_service:
-    build: ./app
-    container_name: app_${GROUP_NAME}
-    restart: always
-    expose:
-      - "3000"
-    environment:
-      DB_HOST: db_service
-      DB_USER: ${DB_USER}
-      DB_PASS: ${DB_PASS}
-      DB_NAME: ${DB_NAME}
-      APP_PORT: 3000
-    depends_on:
-      - db_service
-    networks:
-      - app_network
+  build: ./app
+  container_name: app_${GROUP_NAME}
+  restart: always
+  expose:
+    - "3000"
+  env_file:
+    - .env  # Baca dari .env di root
+  environment:
+    DB_HOST: db_service
+    DB_USER: ${DB_USER}
+    DB_PASS: ${DB_PASS}
+    DB_NAME: ${DB_NAME}
+    APP_PORT: 3000
+  depends_on:
+    db_service:
+      condition: service_healthy
+  networks:
+    - app_network
 
   # --- 3. NGINX SERVICE ---
   nginx_service:

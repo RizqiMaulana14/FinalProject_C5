@@ -1,6 +1,13 @@
 CREATE DATABASE Book;
 USE Book;
 
+CREATE USER IF NOT EXISTS 'bukuC5'@'localhost'
+IDENTIFIED BY 'kelompokpasswordC5';
+
+GRANT ALL PRIVILEGES ON Book.* TO 'bukuC5'@'localhost';
+FLUSH PRIVILEGES;
+
+
 -- TODO: Tulis query SQL kalian di sini (CREATE TABLE & INSERT) untuk inisialisasi database otomatis
 CREATE TABLE Books (
     id INT AUTO_INCREMENT PRIMARY KEY,
