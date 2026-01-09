@@ -76,14 +76,14 @@
               <td><%= buku.penulis %></td>
               <td><%= buku.tahun %></td>
               <td>
-                <% if (buku.status === 'tersedia') { %>
-                  <span class="badge bg-success">tersedia</span>
+                <% if (buku.status === 'Tersedia') { %>
+                  <span class="badge bg-success">Tersedia</span>
                 <% } else { %>
-                  <span class="badge bg-danger">dipinjam</span>
+                  <span class="badge bg-danger">Dipinjam</span>
                 <% } %>
               </td>
               <td class="text-center">
-                <% if (buku.status === 'tersedia') { %>
+                <% if (buku.status === 'Tersedia') { %>
                   <a href="/pinjam/<%= buku.id %>" class="btn btn-info btn-sm text-white">Pinjam</a>
                 <% } %>
                 <a href="/edit/<%= buku.id %>" class="btn btn-warning btn-sm">Edit</a>
