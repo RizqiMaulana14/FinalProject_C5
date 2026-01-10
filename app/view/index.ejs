@@ -67,8 +67,8 @@
             <select 
               name="status" 
               class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 outline-none bg-white">
-              <option value="tersedia">✅ Tersedia</option>
-              <option value="dipinjam">📤 Dipinjam</option>
+              <option value="tersedia">✅ tersedia</option>
+              <option value="dipinjam">📤 dipinjam</option>
             </select>
           </div>
           <div class="md:col-span-2">
@@ -130,19 +130,19 @@
                   <div class="text-sm text-gray-600"><%= buku.tahun %></div>
                 </td>
                 <td class="px-6 py-4">
-                  <% if (buku.status === 'Tersedia') { %>
+                  <% if (buku.status === 'tersedia') { %>
                     <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                      ✅ Tersedia
+                      ✅ tersedia
                     </span>
                   <% } else { %>
                     <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                      📤 Dipinjam
+                      📤 dipinjam
                     </span>
                   <% } %>
                 </td>
                 <td class="px-6 py-4 text-center">
                   <div class="flex items-center justify-center gap-2">
-                    <% if (buku.status === 'Tersedia') { %>
+                    <% if (buku.status === 'tersedia') { %>
                       <a 
                         href="/pinjam/<%= buku.id %>" 
                         class="inline-flex items-center px-3 py-1.5 bg-cyan-500 text-white text-xs font-medium rounded-md hover:bg-cyan-600 transition duration-200 shadow-sm hover:shadow">
