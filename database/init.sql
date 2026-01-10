@@ -14,7 +14,7 @@ CREATE TABLE Books (
     judul VARCHAR(255) NOT NULL,
     penulis VARCHAR(255) NOT NULL,
     tahun INT NOT NULL,
-    status ENUM('Tersedia', 'Dipinjam') NOT NULL DEFAULT 'Tersedia'
+    status ENUM('tersedia', 'dipinjam') NOT NULL DEFAULT 'tersedia'
 );
 
 CREATE TABLE Peminjaman (
@@ -32,5 +32,5 @@ CREATE TABLE Peminjaman (
 );
 
 INSERT INTO Books (judul, penulis, tahun, status) VALUES 
-('Animal Farm', 'George Orwell', 1945, 'Tersedia'),
-('1984', 'George Orwell', 1949, 'Tersedia');
+('Animal Farm', 'George Orwell', 1945, 'tersedia'),
+('1984', 'George Orwell', 1949, 'tersedia');
