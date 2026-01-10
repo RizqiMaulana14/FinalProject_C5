@@ -48,16 +48,15 @@ router.get('/edit/:id', async (req, res) => {
 
 // UPDATE - Proses edit buku (POST)
 router.post('/edit/:id', async (req, res) => {
-  const { status } = req.body;
-
+  const { judul, penulis, tahun, status } = req.body;
   try {
     await db.query(
-      'UPDATE Books SET status = ? WHERE id = ?',
-      [status, req.params.id]
+      'UPDATE Books SET judul = ?, penulis = ?, tahun = ?, status = ? WHERE id = ?',
+      [judul, penulis, tahun, status, req.params.id]
     );
     res.redirect('/');
   } catch (error) {
-    console.error(error.message);
+    console.error(error);
     res.status(500).send('Error mengupdate buku');
   }
 });
